@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyPratice_Databinding_3</string>
+    <string-array name="products_array">
+        <item>商品A</item>
+        <item>商品B</item>
+        <item>商品C</item>
+    </string-array>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mypratice_databinding_3.OrderViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!--Spinner 選擇商品時傳遞多個參數 -->
+        <!-- 商品選擇 -->
+        <Spinner
+            android:id="@+id/productSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onItemSelected="@{(parent, view, position, id) -> viewModel.onProductSelected(parent.getItemAtPosition(position).toString(), position)}" />
+
+        <!-- 數量輸入 -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="@={viewModel.quantity}"
+            android:hint="請輸入數量" />
+
+        <!-- 優惠碼輸入 -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.couponCode}"
+            android:hint="請輸入優惠碼" />
+
+        <!--計算價格時傳遞多個參數-->
+        <!-- 計算按鈕 -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="計算價格"
+            android:onClick="@{() -> viewModel.calculatePrice(viewModel.selectedProduct,Integer.parseInt(viewModel.quantity),viewModel.couponCode)}" />
+
+        <!-- 顯示結果 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`商品: %s`, viewModel.orderInfo.productId)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`數量: %d`, viewModel.orderInfo.quantity)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`原價: %.2f`, viewModel.orderInfo.price)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`折扣: %.2f`, viewModel.orderInfo.discount)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`最終價格: %.2f`, viewModel.orderInfo.finalPrice)}" />
+
+    </LinearLayout>
+</layout>
